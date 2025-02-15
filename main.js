@@ -40,9 +40,10 @@ let curentP = 1;
 let novel = {
   chaps: 10,
   curentC: 1,
-  name: "name",
-  path: "path"
+  name: "shadow_slave",
+  path: "all_novels/shadow_slave"
 }
+
 let NovelsContext = "";
 
 const chap_sel = document.getElementById("chap-sel");
@@ -50,7 +51,13 @@ const AddList = document.getElementById("add_list");
 const ReadList = document.getElementById("read_list");
 const SettingList = document.getElementById("setting_list");
 
-console.log(info);
+
+if (localStorage.getItem("NovelsData") !== null ) {
+  novel = JSON.parse(localStorage.getItem("NovelsData"));
+  console.log("ss")
+}
+
+//console.log(info);
 
 if (localStorage.getItem("List_Of_Words") !== null) {
   (JSON.parse(localStorage.getItem("List_Of_Words"))).forEach(element => {
@@ -185,8 +192,12 @@ function TextAllPage(reader_text_) {
   //lines.forEach(element => {
   //  ReadList.innerHTML += `<p>${element}</p>`;
   //});
+
   counts_ = 1;
-  main_p_ = `<p class='main_p' id=main_p_id_${counts_} onclick="CertainP(${counts_});">`;
+  main_p_ = `<div class="title_of_the_novel" id="title_of_the_novel">
+      NAME 
+    </div>
+    <p class='main_p' id=main_p_id_${counts_} onclick="CertainP(${counts_});">`;
   
   for (let i = 0; i < reader_text_.length; i++) {
     if (reader_text_.substr(i, 1) === "\n" && reader_text_.substr(i+2, 1) !== "\n") {
@@ -197,7 +208,9 @@ function TextAllPage(reader_text_) {
     }
   }
   main_p_ += `</p>`
-  document.getElementById("text_p").innerHTML = main_p_
+  document.getElementById("text_p").innerHTML = main_p_;
+  document.getElementById("title_of_the_novel").innerHTML = novel.name;
+
    document.getElementById("scroll_list").scrollTop = 0;
   TextValue.reader = reader_text_;
   SetTextValueToLC();
@@ -407,8 +420,8 @@ window.resizeTo(750,750)
 function CertainP(i) {
   curentP = i;
   scrollToElementById(`main_p_id_${i-1}`);
-  if (i > 1) {
-    document.getElementById(`main_p_id_${i-1}`).style = `background-color: var(--body-bg-color);`;
+  for (let j = 1; j <= counts_; j++) {
+    document.getElementById(`main_p_id_${j}`).style = `background-color: var(--body-bg-color);`;
   }
     document.getElementById(`main_p_id_${i}`).style = `background-color: gray;`;
     if (LANGUAGE.from === "en") {
@@ -421,7 +434,7 @@ function CertainP(i) {
     if (readss) {
       TextToSpeechZ(document.getElementById(`main_p_id_${i}`).innerHTML, langg, i+1)
     }
-    console.log(document.getElementById(`main_p_id_${i}`).innerHTML)
+    //console.log(document.getElementById(`main_p_id_${i}`).innerHTML)
 }
 
 
@@ -524,12 +537,18 @@ function GetDataForChap(path_) {
 Start();
 
 function Start() {
-  GetDataForChap(`all_novels/shadow_slave/chap_${novel.curentC}.txt`)
+  GetDataForChap(`${novel.path}/chap_${novel.curentC}.txt`)
 
   setTimeout(() => {
-    console.log("dsa", NovelsContext)    
+    //console.log("dsa", NovelsContext)    
     TextAllPage(NovelsContext);  
   }, 200);
 }
 
 
+
+
+
+function GoToHome() {
+  window.location.href = "index.html";
+}
