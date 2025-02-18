@@ -16,5 +16,11 @@ const all_novels_data = [
         curentC: 1,
         name: "Lord of the Mysteries",
         path: "all_novels/lordofthemysteries"
+    },
+    {
+        chaps: 5,
+        curentC: 1,
+        name: "Reverend Insanity",
+        path: "all_novels/reverendinsanity"
     }
 ]
