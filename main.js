@@ -538,7 +538,7 @@ Start();
 
 function Start() {
   GetDataForChap(`${novel.path}/chap_${novel.curentC}.txt`)
-
+  curentP = 1;
   setTimeout(() => {
     //console.log("dsa", NovelsContext)    
     TextAllPage(NovelsContext);  
