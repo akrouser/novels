@@ -18,9 +18,9 @@ const all_novels_data = [
         path: "all_novels/lordofthemysteries"
     },
     {
-        chaps: 5,
+        chaps: 2,
         curentC: 1,
-        name: "Reverend Insanity",
-        path: "all_novels/reverendinsanity"
+        name: "An Extra’s Rise in an Eroge",
+        path: "all_novels/anextrasriseinaneroge"
     }
 ]
